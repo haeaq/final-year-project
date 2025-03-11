@@ -16,5 +16,10 @@ pipeline {
                 sh 'trivy fs . --format json --output scan_result.json'
             }
         }
+        stage('Store Results as Artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'scan_result.json', allowEmptyArchive: true
+            }
+        }
     }
 }
