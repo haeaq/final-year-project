@@ -1,22 +1,10 @@
 pipeline {
-  agent {
-    docker {
-      image 'bitnami/python:3.8.20-debian-12-r4'
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'whoami'
+            }
+        }
     }
-
-  }
-  stages {
-    stage('start') {
-      steps {
-        echo 'starting the pipeline'
-      }
-    }
-
-    stage('test') {
-      steps {
-        sh 'python3 --version'
-      }
-    }
-
-  }
 }
