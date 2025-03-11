@@ -1,9 +1,14 @@
 pipeline {
     agent { dockerfile true }
     stages {
-        stage('Test') {
+        stage('Verify') {
             steps {
                 sh 'whoami'
+            }
+        }
+        stage('Trivy') {
+            steps {
+                sh 'trivy'
             }
         }
     }
