@@ -4,6 +4,7 @@ pipeline {
         stage('Verify OS') {
             steps {
                 sh 'whoami'
+                sh 'pwd'
             }
         }
         stage('Verify Trivy instellation') {
