@@ -7,15 +7,15 @@ pipeline {
                 sh 'pwd'
             }
         }
-        stage('Verify Trivy instellation') {
+        stage('Verify Trivy Instellation') {
             steps {
-                sh 'trivy'
+                sh 'trivy --version'
             }
         }
         stage('Trivy Scan') {
             steps {
                 echo 'Starting the scanning stage..'
-                sh 'trivy fs .  --scanners vuln,secret,misconfig --output scan_result.json'
+                sh 'trivy fs .  --scanners vuln,secret,misconfig --format json --output scan_result.json'
             }
         }
         stage('Store Results as Artifacts') {
