@@ -19,7 +19,7 @@ pipeline {
         stage('Trivy Scan') {
             steps {
                 echo 'Starting the scanning stage..'
-                sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template html.tpl -o report.html'
+                sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@html.tpl" -o report.html'
             }
         }
         stage('Store Results as Artifacts') {
