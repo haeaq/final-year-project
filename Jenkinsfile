@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Store Results as Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'scan_result.json', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'scan_result', allowEmptyArchive: true
             }
         }
     }
