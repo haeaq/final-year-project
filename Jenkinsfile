@@ -1,12 +1,13 @@
 pipeline {
-    //agent { dockerfile true }
-    agent {
-        docker { image 'aquasec/trivy' }
-    }
+    agent { dockerfile true }
     stages {
         stage('Verify OS') {
             steps {
-                //sh 'whoami'
+                sh 'whoami'
+            }
+        }
+        stage('Print Local Directory') {
+            steps {
                 sh 'pwd'
             }
         }
