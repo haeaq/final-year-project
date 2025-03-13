@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Verify OS') {
             steps {
-                sh 'whoami'
+                //sh 'whoami'
                 sh 'pwd'
             }
         }
