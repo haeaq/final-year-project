@@ -1,10 +1,10 @@
 # Base image
-FROM ubuntu
+FROM ubuntu:24.04
 
 RUN apt-get update && apt-get upgrade -y
 
-# Curl tool installation 
-RUN apt install -y curl
+# Curl and git tools installation 
+RUN apt update && apt install -y curl && apt install -y git
 
 # Trivy Installation
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | \
