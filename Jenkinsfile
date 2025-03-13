@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Trivy Scan') {
             steps {
-                sh 'Starting the scanning stage..'
+                echo 'Starting the scanning stage..'
                 sh 'trivy fs .  --scanners vuln,secret,misconfig --output scan_result.json'
             }
         }
