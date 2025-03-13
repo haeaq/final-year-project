@@ -14,7 +14,8 @@ pipeline {
         }
         stage('Trivy Scan') {
             steps {
-                sh 'trivy fs . --format json --output scan_result.json'
+                sh 'Starting the scanning stage..'
+                sh 'trivy fs .  --scanners vuln,secret,misconfig --output scan_result.json'
             }
         }
         stage('Store Results as Artifacts') {
