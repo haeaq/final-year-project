@@ -1,5 +1,8 @@
 pipeline {
-    agent { dockerfile true }
+    //agent { dockerfile true }
+    agent {
+        docker { image 'aquasec/trivy' }
+    }
     stages {
         stage('Verify OS') {
             steps {
@@ -13,9 +16,6 @@ pipeline {
             }
         }
         stage('Trivy Scan') {
-            agent {
-                docker { image 'aquasec/trivy' }
-            }
             steps {
                 echo 'Starting the scanning stage..'
                 sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@/usr/local/share/trivy/templates/html.tpl" -o report.html'
