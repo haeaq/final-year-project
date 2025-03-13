@@ -25,9 +25,9 @@ pipeline {
         stage('Unit test') {
             steps {
                 echo 'Starting the testing stage..'
-                sh 'cd greetings && go test -v > ./test_result.txt'
-                sh 'go tool cover -html=./test_report.out'
-                sh 'go tool cover -html=./test_report.out -o ./coverage.html'
+                sh 'cd greetings && go test -v > ./test_report.txt'
+                sh 'go test -coverprofile=coverage_test.out'
+                sh 'go tool cover -html=coverage_test.out -o /final-year-project/coverage_report.html'
             }
         }
         stage('Store Results as Artifacts') {
