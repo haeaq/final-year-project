@@ -22,9 +22,17 @@ pipeline {
                 sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@html.tpl" -o trivy_report.html'
             }
         }
+        stage('Unit test') {
+            steps {
+                echo 'Starting the testing stage..'
+                sh 'cd greetings && go test -v > ./test_result.txt'
+                sh 'go tool cover -html=./test_report.out'
+                sh 'go tool cover -html=./test_report.out -o ./coverage.html'
+            }
+        }
         stage('Store Results as Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'trivy_report.html', allowEmptyArchive: true
+                archiveArtifacts artifacts: '*_report.*', allowEmptyArchive: true
             }
         }
     }
