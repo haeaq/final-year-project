@@ -16,10 +16,9 @@ pipeline {
                 sh 'trivy --version'
             }
         }
-        stage('Trivy Scan') {
+        stage('Verify Go Instellation') {
             steps {
-                echo 'Starting the scanning stage..'
-                sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@html.tpl" -o trivy_report.html'
+                sh 'go version'
             }
         }
         stage('Unit test') {
@@ -33,6 +32,13 @@ pipeline {
                 go tool cover -html=coverage_test.out -o coverage_report.html
                 ls
                 '''
+            }
+        }
+        stage('Trivy Scan') {
+            steps {
+                echo 'Starting the scanning stage..'
+                sh 'cd ..'
+                sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@html.tpl" -o trivy_report.html'
             }
         }
         stage('Store Results as Artifacts') {
