@@ -6,7 +6,7 @@ import (
 	"math/rand"
 )
 
-// Added vulnerabilities for demonstration.
+// Added exposed secret for demonstration.
 const APIKey = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 
 // Hello returns a greeting for the named person.
