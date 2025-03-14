@@ -46,10 +46,10 @@ pipeline {
                 //sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@html.tpl" -o trivy_report.html'
             }
         }
-        stage('Store Results as Artifacts') {
-            steps {
-                archiveArtifacts artifacts: '**/*_report.*', allowEmptyArchive: true
-            }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: '**/*_report.*', allowEmptyArchive: true
         }
     }
 }
