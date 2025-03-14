@@ -1,5 +1,9 @@
 pipeline {
-    agent { dockerfile true }
+    agent { 
+        dockerfile {
+            args '--name testing-environment-container'
+        } 
+    }
     stages {
         stage('Verify OS') {
             steps {
