@@ -16,8 +16,9 @@ func Hello(name string) (string, error) {
 		return name, errors.New("empty name")
 	}
 	// Create a message using a random format.
-	message := fmt.Sprintf(randomFormat(), name)
-	//message := fmt.Sprint(randomFormat())
+	//message := fmt.Sprintf(randomFormat(), name)
+	// failed unit test example
+	message := fmt.Sprint(randomFormat())
 	return message, nil
 }
 
