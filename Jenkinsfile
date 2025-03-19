@@ -42,7 +42,7 @@ pipeline {
             steps {
                 echo 'Starting the scanning stage..'
                 sh 'cd ..'
-                sh 'trivy fs .  --scanners vuln,secret,misconfig -o trivy_report.txt --no-progress'
+                sh 'trivy fs .  --scanners vuln,secret,misconfig --no-progress' // -o trivy_report.txt'
                 ///sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@html.tpl" -o trivy_report.html'
             }
         }
