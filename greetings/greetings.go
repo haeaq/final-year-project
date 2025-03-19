@@ -6,6 +6,8 @@ import (
 	"math/rand"
 )
 
+// Added exposed secret for demonstration.
+const APIKey = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 
 // Hello returns a greeting for the named person.
 func Hello(name string) (string, error) {
