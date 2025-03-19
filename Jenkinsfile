@@ -50,6 +50,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: '**/*_report.*', allowEmptyArchive: true
+            cleanWs()
         }
     }
 }
