@@ -50,8 +50,8 @@ pipeline {
             steps {
                 echo 'This is a new stage'
             }
-        }  
-    } */
+        }  */
+    } 
     post {
         always {
             archiveArtifacts artifacts: '**/*_report.*', allowEmptyArchive: true
