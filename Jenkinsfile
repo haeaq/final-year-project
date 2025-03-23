@@ -46,12 +46,12 @@ pipeline {
                 ///sh 'trivy fs .  --scanners vuln,secret,misconfig --format template --template "@html.tpl" -o trivy_report.html'
             }
         }
-        stage('New stage') {
+     /* stage('New stage') {
             steps {
                 echo 'This is a new stage'
             }
         }  
-    }
+    } */
     post {
         always {
             archiveArtifacts artifacts: '**/*_report.*', allowEmptyArchive: true
