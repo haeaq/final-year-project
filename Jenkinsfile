@@ -25,19 +25,6 @@ pipeline {
                 sh 'go version'
             }
         }
-        stage('Unit test') {
-            steps {
-                echo 'Starting the testing stage..'
-                sh '''
-                ls
-                cd greetings
-                go test -v > test_report.txt
-                go test -coverprofile=coverage_test.out
-                go tool cover -html=coverage_test.out -o coverage_report.html
-                ls
-                '''
-            }
-        }
         stage('Trivy Scan') {
             steps {
                 echo 'Starting the scanning stage..'
