@@ -1,8 +1,6 @@
 pipeline {
-    agent { 
-        dockerfile {
-            args '--name testing-environment-container-2'
-        } 
+    agent {
+        docker { image 'node:22.14.0-alpine3.21' }
     }
     stages {
         stage('Verify OS') {
@@ -12,7 +10,7 @@ pipeline {
         }
         stage('New stage') {
             steps {
-                echo 'This is a new stage'
+                echo 'This is a new stage, run in node alpine image '
             }
         }  
     } 
