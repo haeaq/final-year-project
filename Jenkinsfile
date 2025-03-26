@@ -13,5 +13,10 @@ pipeline {
                 echo 'This is a new stage, run in node alpine image '
             }
         }  
+        stage('Print Local Directory') {
+            steps {
+                sh 'pwd'
+            }
+        }
     } 
 }
