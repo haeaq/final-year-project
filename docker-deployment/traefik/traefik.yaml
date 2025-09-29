@@ -1,0 +1,52 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+serversTransport:
+  insecureSkipVerify: true
+
+# enable logs/ type of logs
+log:
+  level: DEBUG
+
+# Dashboard enable/disable 
+api:
+  dashboard: false
+  insecure: false
+
+# defines the entrypoint for incoming internet requests 
+entryPoints:
+  http:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: https
+          scheme: https
+          permanent: true
+  https:
+    address: :443
+
+
+# referencing the dynamic routing configurations dynamic.yaml
+providers:
+  providersThrottleDuration: 10s
+  file:
+    watch: true
+    directory: /etc/traefik/
+
+# details to obtain SSL certificate from Let's encrypt 
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: ***@gmail.com
+      # Using the Let's Encrypt staging server
+      #caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      # Let's Encrypt production server 
+      caServer: https://acme-v02.api.letsencrypt.org/directory
+      storage: /etc/traefik/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: "30s"
+        resolvers:
+        - ***
+        - ***
