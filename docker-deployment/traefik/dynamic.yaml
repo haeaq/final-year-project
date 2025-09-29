@@ -1,0 +1,95 @@
+# Dynamic configuration
+http:
+  routers:
+    # Dashboard route 
+    #traefik-dashboard:
+    #  service: "traefik-dashboard"
+    #  rule: "Host(`***.com`)"
+    #  entryPoints:
+    #  - "http"
+
+    traefik-dashboard-secure:
+      service: "api@internal"
+      rule: "Host(`***.com`)"
+      entryPoints:
+        - "https"
+      tls:
+        certResolver: "letsencrypt"
+      middlewares:
+        - auth
+
+
+    #Portainer route 
+    portainer:
+      service: "portainer"
+      rule: "Host(`admin.***.com`)"
+      entryPoints:
+        - "http"
+
+
+    portainer-secure:
+      service: "portainer"
+      rule: "Host(`admin.***.com`)"
+      entryPoints:
+        - "https"
+      tls:
+        certResolver: "letsencrypt"
+      middlewares:
+        - auth
+
+    jenkins:
+      service: "jenkins"
+      rule: "Host(`jenkins.***.com`)"
+      entryPoints:
+        - "http"
+
+    jenkins-secure:
+      service: "jenkins"
+      rule: "Host(`jenkins.***.com`)"
+      entryPoints:
+        - "https"
+      tls:
+        certResolver: "letsencrypt"
+
+      
+
+  services:
+    # Dashboard route 
+    api@internal:
+      loadBalancer:
+        servers:
+          - url: "http://traefik:8080"
+    portainer:
+      loadBalancer:
+        servers:
+          - url: "http://portainer:9000"
+    jenkins:
+      loadBalancer:
+        servers:
+          - url: "http://jenkins:8080"
+
+  middlewares:
+    auth:
+      basicAuth:
+        users: 
+          - "***"
+        removeHeader: true
+
+# Transport Layer Security Additional Labels
+tls:
+  options:
+    default:
+      sniStrict: true
+      minVersion: VersionTLS12
+      cipherSuites:
+        - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+        - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+        - TLS_FALLBACK_SCSV
+
+    mintls13:
+      sniStrict: true
+      minVersion: VersionTLS13
