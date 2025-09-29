@@ -1,0 +1,59 @@
+version: "3.3"
+services:
+  # Reverse Proxy 
+  traefik:
+    image: "traefik:latest"
+    container_name: "traefik"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - traefik-network
+    restart: always
+    volumes:
+      - "./traefik/:/etc/traefik/:ro"
+      - "./traefik/acme.json:/etc/traefik/acme.json:rw"
+    secrets:
+      - CF_DNS_API_TOKEN
+    environment:
+      - CF_DNS_API_TOKEN_FILE=/run/secrets/CF_DNS_API_TOKEN
+
+  
+  # Portainer for managing containers (administration)
+  portainer:
+    image: "portainer/portainer-ce:latest"
+    container_name: "portainer"
+    networks:
+      - traefik-network
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker-deployment/portainer/data:/data
+
+
+  # Jenkins (CI)
+  jenkins:
+    image: "jenkins-cli:v2"
+    container_name: jenkins
+    restart: always
+    networks:
+      - traefik-network
+    volumes:
+    - jenkins_home:/var/jenkins_home
+    - /var/run/docker.sock:/var/run/docker.sock
+    user: "1000:998"
+
+
+# Volumes  
+volumes:
+  jenkins_home:
+    external: false
+secrets:
+  CF_DNS_API_TOKEN:
+    file: "./secrets/CF_DNS_API_TOKEN"
+
+# DOCKER NETWORK 
+networks:
+  traefik-network:
+    external: true
+      
